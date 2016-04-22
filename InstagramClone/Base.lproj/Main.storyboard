@@ -337,7 +337,7 @@
         <!--Camera-->
         <scene sceneID="drq-jG-p0e">
             <objects>
-                <viewController id="Wql-ip-asw" sceneMemberID="viewController">
+                <viewController id="Wql-ip-asw" customClass="CameraViewController" customModule="InstagramClone" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vR3-Vf-ut5"/>
                         <viewControllerLayoutGuide type="bottom" id="RzI-Tl-PBd"/>
@@ -345,9 +345,37 @@
                     <view key="view" contentMode="scaleToFill" id="pTH-R2-Zdj">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="493-FE-Uev">
+                                <rect key="frame" x="0.0" y="64" width="600" height="430"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="430" id="a9x-l2-k0I"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gY2-lU-r4u">
+                                <rect key="frame" x="273" y="513" width="54" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="bLU-vJ-4VE"/>
+                                </constraints>
+                                <state key="normal" title="Camera"/>
+                                <connections>
+                                    <action selector="onCameraPressed:" destination="Wql-ip-asw" eventType="touchUpInside" id="feG-mX-YT7"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="gY2-lU-r4u" firstAttribute="top" secondItem="493-FE-Uev" secondAttribute="bottom" constant="19" id="8MZ-2v-tpj"/>
+                            <constraint firstItem="gY2-lU-r4u" firstAttribute="centerX" secondItem="pTH-R2-Zdj" secondAttribute="centerX" id="QZX-6B-QpR"/>
+                            <constraint firstItem="493-FE-Uev" firstAttribute="leading" secondItem="pTH-R2-Zdj" secondAttribute="leading" id="W4V-cd-IBU"/>
+                            <constraint firstItem="493-FE-Uev" firstAttribute="top" secondItem="vR3-Vf-ut5" secondAttribute="bottom" id="XF2-y8-dyg"/>
+                            <constraint firstAttribute="trailing" secondItem="493-FE-Uev" secondAttribute="trailing" id="nXn-FP-0BV"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Camera" id="BMB-BT-yOH"/>
+                    <connections>
+                        <outlet property="imageView" destination="493-FE-Uev" id="qct-Kj-vXY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lfw-CF-hB7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -356,7 +384,7 @@
         <!--Title-->
         <scene sceneID="GAD-yP-iSe">
             <objects>
-                <viewController id="fiO-aY-v4F" sceneMemberID="viewController">
+                <viewController id="fiO-aY-v4F" customClass="GalleryViewController" customModule="InstagramClone" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="OvA-hA-rjZ"/>
                         <viewControllerLayoutGuide type="bottom" id="Ozr-Be-ml0"/>
