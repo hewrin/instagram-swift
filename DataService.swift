@@ -10,5 +10,11 @@ import Foundation
 import Firebase
 
 class DataService {
-  static let dataService = DataService()
+    static let dataService = DataService()
+    private let _BASE_URL = Firebase(url: BASE_URL)
+    
+    var BASE_REF: Firebase{
+        return _BASE_URL
+    }
+    
 }
