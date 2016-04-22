@@ -9,6 +9,7 @@
 import UIKit
 
 class CameraViewController: UIViewController {
+    @IBOutlet weak var imageView: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +22,11 @@ class CameraViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func onCameraPressed(sender: AnyObject) {
+    
+    
+    
+    }
 
     /*
     // MARK: - Navigation
