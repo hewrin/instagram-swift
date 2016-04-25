@@ -14,8 +14,12 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        imagePicker = UIImagePickerController ()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .Camera
+        
+        presentViewController(imagePicker, animated: true, completion: nil)
+  
     }
 
     override func didReceiveMemoryWarning() {
@@ -23,14 +27,14 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func onCameraPressed(sender: AnyObject) {
-        imagePicker = UIImagePickerController ()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .Camera
-        
-        presentViewController(imagePicker, animated: true, completion: nil)
-
-    }
+//    @IBAction func onCameraPressed(sender: AnyObject) {
+//        imagePicker = UIImagePickerController ()
+//        imagePicker.delegate = self
+//        imagePicker.sourceType = .Camera
+//        
+//        presentViewController(imagePicker, animated: true, completion: nil)
+//
+//    }
     
     func selectPicture() {
         let picker = UIImagePickerController()
