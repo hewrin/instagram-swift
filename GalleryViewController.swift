@@ -70,5 +70,11 @@ class GalleryViewController: UIViewController,UINavigationControllerDelegate, UI
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         self.imageView.image = self.images[indexPath.row]
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let destination = segue.destinationViewController as! SubmitViewController
+        destination.image = self.imageView.image
+        
+    }
 }
   
