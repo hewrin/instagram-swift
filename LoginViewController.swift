@@ -16,7 +16,14 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.cyanColor()
- 
+        
+        let currentUserID = NSUserDefaults.standardUserDefaults().valueForKey("uid") as? String
+        if currentUserID != nil {
+            //checks in user database
+            if DataService.dataService.USER_REF.childByAppendingPath(currentUserID)!.authData != nil {
+                self.performSegueWithIdentifier("LoggedIn", sender: nil)
+            }
+        }
         
         
     }

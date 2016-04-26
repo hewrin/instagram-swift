@@ -13,14 +13,19 @@ class OtherUserProfileViewController: UIViewController,UICollectionViewDataSourc
     @IBOutlet weak var userImageView: UIImageView!
     var userImages = [UIImage]()
     var isFollowing = false
+    var user = String()
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // need the code to call the user's profile out (profile photo, captions and photos)
-
-        
-        self.collectionView.reloadData()
+        //calling data out from USERREF/Tweets - observeEvents
+        DataService.dataService.USER_REF.childByAppendingPath(user).childByAppendingPath("photos").observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
+            DataService.dataService.PHOTO_REF.childByAppendingPath(snapshot.key).observeEventType(.Value, withBlock: { (snapshot) -> Void in
+                
+                
+            })
+        })
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -46,13 +51,13 @@ class OtherUserProfileViewController: UIViewController,UICollectionViewDataSourc
     @IBAction func onFollowingButtonPressed(sender: AnyObject) {
         if (!isFollowing) {
             isFollowing = true
-            sender.backgroundColor = UIColor.blueColor()
+           // sender.backgroundColor = UIColor.blueColor()
             // current user plus FOLLOWING - creating a new branch in the user database called following
-            DataService.dataService.CURRENT_USER_REF.childByAppendingPath("Followings").updateChildValues([self.user.userKey: true], withCompletionBlock: { (error, ref) -> Void in
+            DataService.dataService.CURRENT_USER_REF.childByAppendingPath("Followings").updateChildValues([self.user: true], withCompletionBlock: { (error, ref) -> Void in
                 // creating the current userID based on the USERDEFAULT called UID
                 if let currentUserID = NSUserDefaults.standardUserDefaults().valueForKey("uid") as? String {
-                    DataService.dataService.USER_REF.childByAppendingPath(self.user.userKey).childByAppendingPath("Followers").updateChildValues([currentUserID:true])
-                }
+                    DataService.dataService.USER_REF.childByAppendingPath(self.user).childByAppendingPath("Followers").updateChildValues([currentUserID:true])
+                                }
             })
         
         }
