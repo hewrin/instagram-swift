@@ -80,15 +80,15 @@
 			isa = PBXGroup;
 			children = (
 				6AF960DE1CC9C47E00A1B609 /* Main.storyboard */,
-				18E1501A1CCA18140033352D /* CameraViewController.swift */,
 				18E150101CC9EB140033352D /* LoginViewController.swift */,
 				18E150121CC9EB280033352D /* RegisterViewController.swift */,
 				18E150141CC9F2D70033352D /* HomeTableViewController.swift */,
 				18E150161CC9F2E60033352D /* SearchTableViewController.swift */,
-				18E1501C1CCA182F0033352D /* GalleryViewController.swift */,
-				6AA13E241CCE15C80047AED1 /* SubmitViewController.swift */,
 				18E150181CC9F3060033352D /* ProfileViewController.swift */,
 				18EC4A151CCF09B400FF9AAE /* OtherUserProfileViewController.swift */,
+				18E1501A1CCA18140033352D /* CameraViewController.swift */,
+				18E1501C1CCA182F0033352D /* GalleryViewController.swift */,
+				6AA13E241CCE15C80047AED1 /* SubmitViewController.swift */,
 			);
 			name = Controllers;
 			path = ..;
