@@ -34,9 +34,33 @@ class SubmitViewController: UIViewController {
                 print("Upload failed ❌ (\(exception))")
             }
             if task.result != nil {
-                
-                let s3URL = NSURL(string: "http://s3.amazonaws.com/\(S3BucketName)/\(uploadRequest.key!)")!
+                let urlString = "http://s3.amazonaws.com/\(S3BucketName)/\(uploadRequest.key!)"
+                let s3URL = NSURL(string: urlString)!
                 print("Uploaded to:\n\(s3URL)")
+                let rootReference = DataService.dataService.BASE_REF
+                
+                if let currentUserID = NSUserDefaults.standardUserDefaults().valueForKey("uid") as? String {
+                    
+                   let currentUser = rootReference.childByAppendingPath("users").childByAppendingPath(currentUserID)
+                   let captionText = self.captionTextField!.text! as String
+                   let  photo = ["url": urlString, "caption": captionText, "user_id": currentUserID]
+                    print("\(photo)")
+                    
+                  let photoRef = rootReference.childByAppendingPath("photos").childByAutoId()
+                    
+                    photoRef.setValue(photo, withCompletionBlock: { (error, result) -> Void in
+                    
+                    if error == nil {
+                       let photoId = photoRef.key
+                        let newPhoto = [photoId : true ]
+                       currentUser.childByAppendingPath("photos").updateChildValues(newPhoto)
+                        
+                    self.performSegueWithIdentifier("afterUploadPhoto", sender: self)
+                    } else {
+                        print("(\(error))")
+                    }
+                  })
+                }
             }
             else {
                 print("Unexpected empty result.")
