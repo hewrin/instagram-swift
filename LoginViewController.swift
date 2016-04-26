@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import AWSS3
 class LoginViewController: UIViewController {
 
     @IBOutlet weak var emailTextField: UITextField!
@@ -36,6 +36,7 @@ class LoginViewController: UIViewController {
                 }else{
                     
                     NSUserDefaults.standardUserDefaults().setValue(authData.uid, forKey: "uid")
+
                     self.performSegueWithIdentifier("LoggedIn", sender: nil)
                 }
             })

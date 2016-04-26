@@ -5,5 +5,6 @@
 
 target 'InstagramClone' do
  pod 'Firebase'
+ pod 'AWSS3', '~> 2.3.3'
 end
 
