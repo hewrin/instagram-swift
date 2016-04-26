@@ -13,9 +13,14 @@ class DataService {
     static let dataService = DataService()
     private let _BASE_URL = Firebase(url: BASE_URL)
     private let _USER_REF = Firebase(url: "\(BASE_URL)/users")
+    private let _PHOTO_REF = Firebase(url: "\(BASE_URL)/photos")
     
     var BASE_REF: Firebase{
         return _BASE_URL
+    }
+    
+    var PHOTO_REF: Firebase{
+        return _PHOTO_REF
     }
     
     var USER_REF: Firebase{
