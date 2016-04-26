@@ -55,7 +55,7 @@ class SubmitViewController: UIViewController {
                         let newPhoto = [photoId : true ]
                        currentUser.childByAppendingPath("photos").updateChildValues(newPhoto)
                         
-                    //self.performSegueWithIdentifier("afterUploadPhoto", sender: self)
+                    self.performSegueWithIdentifier("afterUploadPhoto", sender: self)
                     } else {
                         print("(\(error))")
                     }
