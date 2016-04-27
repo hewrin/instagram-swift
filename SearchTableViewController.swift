@@ -51,5 +51,15 @@ class SearchTableViewController: UITableViewController {
         return cell
     }
 
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        if let destination = segue.destinationViewController as? OtherUserProfileViewController{
+//            if let cell = sender as? UITableViewCell{
+//                let indexPath = tableView.indexPathForCell(cell)!
+//                let choosenUser = self.usernameID[indexPath.row]
+//                destination.user = choosenUser
+//            }
+//        }
+//    }
+    
 
 }
