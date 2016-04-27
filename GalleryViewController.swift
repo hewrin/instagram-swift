@@ -29,16 +29,6 @@ class GalleryViewController: UIViewController,UINavigationControllerDelegate, UI
 //       presentViewController(imagePicker, animated: true, completion: nil)
     }
 
- 
-    
-//    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-//        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-//            imageView.contentMode = .ScaleAspectFit
-//            imageView.image = pickedImage
-//        }
-//        
-//        dismissViewControllerAnimated(true, completion: nil)
-//    }
    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
