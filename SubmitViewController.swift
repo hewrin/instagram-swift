@@ -22,7 +22,7 @@ class SubmitViewController: UIViewController {
         uploadRequest.key = NSProcessInfo.processInfo().globallyUniqueString + "." + ext
         uploadRequest.bucket = S3BucketName
         uploadRequest.contentType = "image/" + ext
-
+        
         let transferManager = AWSS3TransferManager.defaultS3TransferManager()
         transferManager.upload(uploadRequest).continueWithBlock { (task) -> AnyObject! in
             if let error = task.error {
@@ -41,25 +41,28 @@ class SubmitViewController: UIViewController {
                 
                 if let currentUserID = NSUserDefaults.standardUserDefaults().valueForKey("uid") as? String {
                     
-                   let currentUser = rootReference.childByAppendingPath("users").childByAppendingPath(currentUserID)
-                   let captionText = self.captionTextField!.text! as String
-                   let  photo = ["url": urlString, "caption": captionText, "user_id": currentUserID]
+                    let currentUser = rootReference.childByAppendingPath("users").childByAppendingPath(currentUserID)
+                    let captionText = self.captionTextField!.text! as String
+                    let  photo = ["url": urlString, "caption": captionText, "user_id": currentUserID]
                     print("\(photo)")
                     
-                  let photoRef = rootReference.childByAppendingPath("photos").childByAutoId()
+                    let photoRef = rootReference.childByAppendingPath("photos").childByAutoId()
                     
                     photoRef.setValue(photo, withCompletionBlock: { (error, result) -> Void in
-                    
-                    if error == nil {
-                       let photoId = photoRef.key
-                        let newPhoto = [photoId : true ]
-                       currentUser.childByAppendingPath("photos").updateChildValues(newPhoto)
                         
-                    self.performSegueWithIdentifier("afterUploadPhoto", sender: self)
-                    } else {
-                        print("(\(error))")
-                    }
-                  })
+                        if error == nil {
+                            let photoId = photoRef.key
+                            let newPhoto = [photoId : true ]
+                            currentUser.childByAppendingPath("photos").updateChildValues(newPhoto)
+                            
+                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                            let viewController = storyboard.instantiateViewControllerWithIdentifier("MainTabBarController") as! UITabBarController
+                            viewController.selectedIndex = 2;
+                            self.presentViewController(viewController, animated: true, completion: nil)
+                        } else {
+                            print("(\(error))")
+                        }
+                    })
                 }
             }
             else {
@@ -69,23 +72,23 @@ class SubmitViewController: UIViewController {
         }
     }
     @IBOutlet weak var imageView: UIImageView!
-
+    
     @IBOutlet weak var captionTextField: UITextField!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.imageView.image = image
     }
-
-
+    
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

@@ -10,12 +10,24 @@ import UIKit
 
 class SearchTableViewController: UITableViewController {
     @IBOutlet weak var searchTextField: UITextField!
-
+    var usernameID = String()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
         
+//        DataService.dataService.USER_REF.observeEventType(<#T##eventType: FEventType##FEventType#>, withBlock: <#T##((FDataSnapshot!) -> Void)!##((FDataSnapshot!) -> Void)!##(FDataSnapshot!) -> Void#>)
+//            if let value = snapshot.value as? [String : AnyObject] {
+//              let userID = usernameID(key: snapshot.key , dict: value)
+//        }
+//        
+//        
+//        
+//        DataService.dataService.TWEET_REF.observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
+//            //returns value of snapshot , and assign values to tweet
+//            if let value = snapshot.value as? [String : AnyObject] {
+//                let tweet = Tweet(key: snapshot.key , dict: value)
+//                self.tweets.append(tweet)
+//                self.tableView.reloadData()
     }
 
     
