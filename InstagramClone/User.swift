@@ -8,11 +8,11 @@
 
 import Foundation
 
-class user {
+class User {
     
     private var _userKey: String!
-//    var email: String!
-//    var photos: [String: String]
+    var email: String!
+    var photos: [String: String]!
     var username: String!
     
     var userKey: String {
@@ -22,13 +22,13 @@ class user {
     init(key: String, dict: [String: AnyObject]){
         self._userKey = key
         
-//        let email =  dict["email"] as? String
-//            self.email = email
-        
-        
-//        let photos =  dict["photos"] as? [String: String]
-//            self.photos = photos!
-        
+        if let email =  dict["email"] as? String{
+            self.email = email
+        }
+
+       if let photos =  dict["photos"] as? [String: String]{
+            self.photos = photos
+        }
         
         if let username =  dict["username"] as? String{
             self.username = username
