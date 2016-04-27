@@ -252,7 +252,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="8IZ-k0-ZPO">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="s9Y-VR-vSS" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabBarController" automaticallyAdjustsScrollViewInsets="NO" id="s9Y-VR-vSS" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="wFM-3P-Uho">
                         <autoresizingMask key="autoresizingMask"/>
@@ -260,7 +260,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="r34-E6-6ja" kind="relationship" relationship="viewControllers" id="3hT-N0-BHI"/>
-                        <segue destination="rme-Tv-O7Y" kind="relationship" relationship="viewControllers" id="CyJ-u6-HCX"/>
+                        <segue destination="N8j-Po-6R1" kind="relationship" relationship="viewControllers" id="CyJ-u6-HCX"/>
                         <segue destination="5OL-Vz-x6p" kind="relationship" relationship="viewControllers" id="kXJ-1a-adG"/>
                     </connections>
                 </tabBarController>
@@ -354,10 +354,13 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="collectionView" destination="Lxa-Cc-x8r" id="2mP-Cx-dkb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bk2-RZ-O6h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3328" y="1122"/>
+            <point key="canvasLocation" x="4140" y="1122"/>
         </scene>
         <!--Home-->
         <scene sceneID="Tse-z6-QD2">
@@ -550,7 +553,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IWf-nZ-LDo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4809" y="1143"/>
+            <point key="canvasLocation" x="5719" y="1519"/>
         </scene>
         <!--Submit View Controller-->
         <scene sceneID="Z5f-N3-ss5">
@@ -609,7 +612,6 @@
                     <connections>
                         <outlet property="captionTextField" destination="6RF-qi-GGI" id="jEZ-7Z-sG5"/>
                         <outlet property="imageView" destination="PQ6-6q-2yM" id="asA-W7-gby"/>
-                        <segue destination="U6L-5e-kN4" kind="show" identifier="afterUploadPhoto" id="zRN-0p-Tma"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n67-Nv-c6r" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -621,7 +623,7 @@
             <objects>
                 <tableViewController id="rme-Tv-O7Y" customClass="SearchTableViewController" customModule="InstagramClone" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="8P6-UZ-qDg">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -639,7 +641,6 @@
                             <outlet property="delegate" destination="rme-Tv-O7Y" id="ZFb-Ev-Qg5"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" systemItem="search" id="5c0-jZ-hgm"/>
                     <navigationItem key="navigationItem" id="I8M-Yu-G7O">
                         <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" title="Search" id="XcL-i6-uk4">
@@ -654,13 +655,14 @@
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="searchTextField" destination="S4H-f0-qEG" id="wiy-7x-xbJ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mLd-gR-fWU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1813" y="1122"/>
+            <point key="canvasLocation" x="1871" y="2154"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="gj4-3Q-etV">
@@ -770,7 +772,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zpv-o5-udC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4134" y="1143"/>
+            <point key="canvasLocation" x="4946" y="1143"/>
         </scene>
         <!--HOME-->
         <scene sceneID="Kfs-Yi-dsG">
@@ -808,7 +810,26 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QAP-gW-jg3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2516" y="1122"/>
+            <point key="canvasLocation" x="3328" y="1122"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="oFM-E7-oM3">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="N8j-Po-6R1" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" systemItem="search" id="5c0-jZ-hgm"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="RqA-j7-3iU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="rme-Tv-O7Y" kind="relationship" relationship="rootViewController" id="aNy-YP-fcj"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qHJ-U4-CMB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1833" y="1366"/>
         </scene>
     </scenes>
     <resources>
@@ -817,9 +838,8 @@
         <image name="backdrop_Fotor" width="1280" height="800"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="Dl4-Wu-KH1"/>
         <segue reference="DvL-3Q-cjf"/>
         <segue reference="L4S-bd-0Qu"/>
-        <segue reference="ydy-A2-SeQ"/>
-        <segue reference="zRN-0p-Tma"/>
     </inferredMetricsTieBreakers>
 </document>
