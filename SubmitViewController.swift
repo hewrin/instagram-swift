@@ -44,16 +44,30 @@ class SubmitViewController: UIViewController {
                    let currentUser = rootReference.childByAppendingPath("users").childByAppendingPath(currentUserID)
                    let captionText = self.captionTextField!.text! as String
                    let  photo = ["url": urlString, "caption": captionText, "user_id": currentUserID]
-                    print("\(photo)")
                     
-                  let photoRef = rootReference.childByAppendingPath("photos").childByAutoId()
-                    
+                   let photoRef = rootReference.childByAppendingPath("photos").childByAutoId()
                     photoRef.setValue(photo, withCompletionBlock: { (error, result) -> Void in
                     
                     if error == nil {
                        let photoId = photoRef.key
-                        let newPhoto = [photoId : true ]
+                       let newPhoto = [photoId : true ]
                        currentUser.childByAppendingPath("photos").updateChildValues(newPhoto)
+                       
+                       let followingRef = currentUser.childByAppendingPath("following")
+                       
+                        followingRef.observeEventType(.Value, withBlock: { snapshot in
+                            print(snapshot.value)
+                            if !(snapshot.value is NSNull) {
+                                for child in snapshot.children {
+                                    
+                                    let childSnapshot = snapshot.childSnapshotForPath(child.key)
+                                    let someValue = childSnapshot.value["key"] as! String
+                                    print("\(someValue)")
+                                }
+                            }
+                            }, withCancelBlock: { error in
+                                print(error.description)
+                        })
                         
                     self.performSegueWithIdentifier("afterUploadPhoto", sender: self)
                     } else {
@@ -77,15 +91,5 @@ class SubmitViewController: UIViewController {
         self.imageView.image = image
     }
 
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

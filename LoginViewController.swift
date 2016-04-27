@@ -32,6 +32,7 @@ class LoginViewController: UIViewController {
     @IBAction func goButtonPressed(sender: AnyObject) {
         
         if let email = emailTextField.text, let password = passwordTextField.text {
+            
             DataService.dataService.BASE_REF.authUser(email, password: password, withCompletionBlock: { (error, authData) in
                 if error != nil{
                     let alertController = UIAlertController(title: "Error Message", message: "\(error.localizedDescription)", preferredStyle: .Alert)
