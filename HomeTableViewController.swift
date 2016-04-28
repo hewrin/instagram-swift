@@ -21,6 +21,8 @@ class HomeTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        DataService.dataService.USER_REF
+        
         self.tableView.reloadData()
 
     }
