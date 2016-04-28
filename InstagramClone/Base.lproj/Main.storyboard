@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QAL-df-7re">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QAL-df-7re">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="backdrop_Fotor" translatesAutoresizingMaskIntoConstraints="NO" id="L1d-s1-LKA">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="backdrop_Fotor" translatesAutoresizingMaskIntoConstraints="NO" id="L1d-s1-LKA">
                                 <rect key="frame" x="-340" y="0.0" width="1280" height="800"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOGIN PAGE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zu1-Qf-VLq">
@@ -123,7 +123,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="backdrop_Fotor" translatesAutoresizingMaskIntoConstraints="NO" id="FPI-wo-moD">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="backdrop_Fotor" translatesAutoresizingMaskIntoConstraints="NO" id="FPI-wo-moD">
                                 <rect key="frame" x="-340" y="0.0" width="1280" height="800"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Registration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Tf-PY-u9F">
@@ -477,6 +477,7 @@
                     <tabBarItem key="tabBarItem" title="Camera" id="BMB-BT-yOH"/>
                     <connections>
                         <outlet property="imageView" destination="493-FE-Uev" id="qct-Kj-vXY"/>
+                        <segue destination="PUy-Cn-7Oh" kind="show" identifier="cameraToSubmitSegue" id="R6a-fW-dkC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lfw-CF-hB7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1021,8 +1022,9 @@
         <image name="backdrop_Fotor" width="1280" height="800"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ydy-A2-SeQ"/>
-        <segue reference="DvL-3Q-cjf"/>
         <segue reference="L4S-bd-0Qu"/>
+        <segue reference="DvL-3Q-cjf"/>
+        <segue reference="ydy-A2-SeQ"/>
+        <segue reference="R6a-fW-dkC"/>
     </inferredMetricsTieBreakers>
 </document>
