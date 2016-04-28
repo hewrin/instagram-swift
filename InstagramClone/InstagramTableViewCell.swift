@@ -9,11 +9,12 @@
 import UIKit
 
 class InstagramTableViewCell: UITableViewCell {
-//
-//    @IBOutlet weak var usernameLabel: UILabel!
-//    @IBOutlet weak var captionLabel: UILabel!
-//    @IBOutlet weak var imageView: UIImageView!
-//    
+<<<<<<< HEAD
+
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var captionLabel: UILabel!
+    @IBOutlet weak var imageCellView: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -86,7 +86,6 @@ class PhotoViewController: UIViewController, UITextFieldDelegate, UITableViewDat
                  let username = NSUserDefaults.standardUserDefaults().objectForKey("username") as! String
                  let comment = Comment(body: comment, username:  username)
                  self.comments.append(comment)
-                 self.tableView.reloadData()
                 self.tableView.reloadData()
             } else {
                 print("(\(error))")

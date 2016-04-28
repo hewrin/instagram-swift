@@ -32,12 +32,7 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
                                 
                                 let url = NSURL(string: imageUrl)
                                 let data = NSData(contentsOfURL: url!)
-                                print("\(url)")
-                                print("here")
-                                
-                                
                                 let image = UIImage(data: data!)
-                                let photoKey = key
                                 let newPhoto = Photo(key :key,photo: image!)
                                 self.images.append(newPhoto)
                                 self.collectionView.reloadData()
