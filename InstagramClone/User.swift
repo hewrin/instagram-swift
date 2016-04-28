@@ -35,4 +35,15 @@ class User {
         }
         
   }
+    func checkIfFollowingThisUser(completionHandler: (checkResult: Bool)->Void) -> Void {
+        let rootReference = DataService.dataService.BASE_REF
+        let currentUserID = NSUserDefaults.standardUserDefaults().valueForKey("uid") as? String
+        let currentUser = rootReference.childByAppendingPath("users").childByAppendingPath(currentUserID)
+        let targetRef = currentUser.childByAppendingPath("followings").childByAppendingPath(self.userKey)
+        
+        targetRef.observeSingleEventOfType(.Value, withBlock: {snapshot in
+            let result = snapshot.value.isEqual(NSNull())
+            completionHandler(checkResult: !result)
+        })
+    }
 }

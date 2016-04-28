@@ -32,7 +32,7 @@ class RegisterViewController: UIViewController {
                     let currentUser = rootReference.childByAppendingPath("users").childByAppendingPath(uid)
                     
                     currentUser.setValue(userDict)
-                    
+                    NSUserDefaults.standardUserDefaults().setValue(username, forKey: "username")
                     NSUserDefaults.standardUserDefaults().setValue(uid, forKey: "uid")
                     self.performSegueWithIdentifier("Loggedin", sender: nil)
                     // can consider for the login page to jump back to the login page

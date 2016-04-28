@@ -16,7 +16,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:("LoginViewController.dismissKeyboard"))
         view.addGestureRecognizer(tap)
         
         let currentUserID = NSUserDefaults.standardUserDefaults().valueForKey("uid") as? String

@@ -9,46 +9,57 @@
 import UIKit
 
 class OtherUserProfileViewController: UIViewController,UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var userImageView: UIImageView!
     var userImages = [UIImage]()
     var isFollowing = false
-    var user : User?
+    var user : User!
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        DataService.dataService.USER_REF.childByAppendingPath(user!.userKey).observeEventType(.Value, withBlock: { (snapshot) in
-            if let username = snapshot.value["username"] as? String{
-                self.title = username
+        self.user.checkIfFollowingThisUser({checkResult in
+            if checkResult{
+                self.followButton.setTitle("Followed", forState: UIControlState.Normal) 
+                self.followButton.enabled = false
+                self.isFollowing = true
             }
         })
-        
-        
-        DataService.dataService.USER_REF.childByAppendingPath(user!.userKey).childByAppendingPath("photos").observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
-            
-            DataService.dataService.PHOTO_REF.childByAppendingPath(snapshot.key).observeEventType(.Value, withBlock: { (snapshot) -> Void in
-                
-                if let imageUrl = snapshot.value["url"] as? String {
-                    
-                    let url = NSURL(string: imageUrl)
-                    let data = NSData(contentsOfURL: url!)
-                    print("\(url)")
-                    print("here")
-                    //make sure your image in this url does exist, otherwise unwrap in a if let check
-                    let image = UIImage(data: data!)
-                    self.userImages.append(image!)
-                    
-                  
-                    self.collectionView.reloadData()
-                
+        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+        dispatch_async(dispatch_get_global_queue(priority, 0)) {
+            DataService.dataService.USER_REF.childByAppendingPath(self.user!.userKey).observeEventType(.Value, withBlock: { (snapshot) in
+                if let username = snapshot.value["username"] as? String{
+                    self.title = username
                 }
             })
-        })
-        
-        
+            
+            
+            DataService.dataService.USER_REF.childByAppendingPath(self.user!.userKey).childByAppendingPath("photos").observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
+                
+                DataService.dataService.PHOTO_REF.childByAppendingPath(snapshot.key).observeEventType(.Value, withBlock: { (snapshot) -> Void in
+                    
+                    if let imageUrl = snapshot.value["url"] as? String {
+                        
+                        let url = NSURL(string: imageUrl)
+                        let data = NSData(contentsOfURL: url!)
+                        print("\(url)")
+                        print("here")
+                        //make sure your image in this url does exist, otherwise unwrap in a if let check
+                        let image = UIImage(data: data!)
+                        self.userImages.append(image!)
+                        
+                        
+                        self.collectionView.reloadData()
+                        
+                    }
+                })
+            })
+            dispatch_async(dispatch_get_main_queue()) {
+                self.collectionView.reloadData()
+            }
+        }
+
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -71,7 +82,8 @@ class OtherUserProfileViewController: UIViewController,UICollectionViewDataSourc
         
         
         if (!isFollowing) {
-            isFollowing = true
+            self.followButton.enabled = false
+            self.followButton.titleLabel?.text = "Followed"
             
             // current user plus FOLLOWING - creating a new branch in the user database called following
             
