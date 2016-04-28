@@ -11,6 +11,13 @@ import UIKit
 class HomeTableViewController: UITableViewController {
     var images = [UIImage]()
     
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var captionLabel: UILabel!
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var newsfeedView: UIView!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,7 +31,6 @@ class HomeTableViewController: UITableViewController {
 
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return self.images.count
     }
 
