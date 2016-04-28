@@ -15,7 +15,9 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
         
         let currentUserID = NSUserDefaults.standardUserDefaults().valueForKey("uid") as? String
         if currentUserID != nil {
@@ -28,6 +30,11 @@ class LoginViewController: UIViewController {
         
     }
 
+    func dismissKeyboard() {
+
+        view.endEditing(true)
+    }
+    
 
     @IBAction func goButtonPressed(sender: AnyObject) {
         
@@ -46,10 +53,11 @@ class LoginViewController: UIViewController {
                     NSUserDefaults.standardUserDefaults().setValue(authData.uid, forKey: "uid")
                     let userRef = rootReference.childByAppendingPath("users").childByAppendingPath("\(authData.uid)")
                     userRef.observeEventType(.Value, withBlock: { snapshot in
-                        if let username = snapshot.value["username"] as? String {
-                         NSUserDefaults.standardUserDefaults().setValue(username, forKey: "username")
+                        if let value = snapshot.value as? [String: AnyObject]{
+                            if let username = value["username"] as? String {
+                                 NSUserDefaults.standardUserDefaults().setValue(username, forKey: "username")
+                            }
                         }
-                    
                     self.performSegueWithIdentifier("LoggedIn", sender: nil)
                     })
                 }
