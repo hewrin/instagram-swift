@@ -24,6 +24,10 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
                 
                 userPhotos.observeEventType(.Value, withBlock: { snapshot in
                     if !(snapshot.value is NSNull) {
+                        
+                        if let username = snapshot.value["username"] as? String{
+                            self.title = username
+                        
                         if let value = snapshot.value as? [String: AnyObject] {
                             for (key,value) in value {
                                 let childPhotoRef = photoRef.childByAppendingPath("\(key)")
@@ -44,7 +48,7 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
                                 })
                             }
                         }
-                        
+                        }
                     }
                     }, withCancelBlock: { error in
                         print(error.description)

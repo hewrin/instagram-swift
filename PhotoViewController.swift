@@ -17,9 +17,7 @@ class PhotoViewController: UIViewController, UITextFieldDelegate, UITableViewDat
     var comments = [Comment]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:("LoginViewController.dismissKeyboard"))
-        view.addGestureRecognizer(tap)
+
         
         self.imageView.image = self.photo!.image
         let rootReference = DataService.dataService.BASE_REF
@@ -53,7 +51,12 @@ class PhotoViewController: UIViewController, UITextFieldDelegate, UITableViewDat
             }
         })
     }
-
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    
     @IBAction func onLikeButtonPressed(sender: AnyObject) {
         let rootReference = DataService.dataService.BASE_REF
         let photoKey = self.photo!.photoKey
@@ -89,6 +92,7 @@ class PhotoViewController: UIViewController, UITextFieldDelegate, UITableViewDat
                  let comment = Comment(body: comment, username:  username)
                  self.comments.append(comment)
                 self.tableView.reloadData()
+                textField.resignFirstResponder()
             } else {
                 print("(\(error))")
             }
@@ -97,8 +101,5 @@ class PhotoViewController: UIViewController, UITextFieldDelegate, UITableViewDat
         }
     }
     
-    func dismissKeyboard() {
-        
-        view.endEditing(true)
-    }
+
 }
