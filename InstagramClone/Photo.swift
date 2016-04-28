@@ -11,7 +11,7 @@ import UIKit
 
 class Photo {
     private var _photoKey: String!
-    var image: UIImage?
+    var image: UIImage!
     var photoKey: String {
         return _photoKey
     }

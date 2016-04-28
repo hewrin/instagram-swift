@@ -9,22 +9,56 @@
 import UIKit
 
 class HomeTableViewController: UITableViewController {
-    var images = [UIImage]()
-    
-
-
-    
-    
-    
+    var images = [FollowerFeedPhoto]()
+    var selectedImage : Photo?
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        DataService.dataService.USER_REF
-        
-        self.tableView.reloadData()
-
+        let currentUserId = NSUserDefaults.standardUserDefaults().valueForKey("uid") as! String
+        let username = NSUserDefaults.standardUserDefaults().valueForKey("username") as! String
+        let userRef = DataService.dataService.USER_REF.childByAppendingPath(currentUserId)
+        let photoRef = DataService.dataService.PHOTO_REF
+        let userPhotosRef = userRef.childByAppendingPath("photos")
+        let feedRef = userRef.childByAppendingPath("followerfeed")
+        feedRef.observeEventType(.Value, withBlock: { snapshot in
+          if let feedValue = snapshot.value as? [String: AnyObject] {
+            for(key,value) in feedValue {
+                let photoKey = key
+                let username = value["username"] as! String
+                let url = value["url"] as! String
+                let user_id = value["user_id"] as! String
+                let caption = value["caption"] as! String
+                let followerFeed = FollowerFeedPhoto(photoKey: photoKey,caption:caption, username:username, url:url,user_id:user_id)
+                self.images.append(followerFeed)
+                self.tableView.reloadData()
+            }
+          }
+        })
+        userPhotosRef.observeEventType(.Value, withBlock: { snapshot in
+          if !(snapshot.value is NSNull) {
+            if let value = snapshot.value as? [String: AnyObject] {
+              for (key,_) in value {
+                let childPhotoRef = photoRef.childByAppendingPath("\(key)")
+                childPhotoRef.observeEventType(.Value, withBlock: { (snapshot) -> Void in
+                    print(snapshot.value)
+                  if let imageUrl = snapshot.value["url"] as? String {
+                    let photoKey = snapshot.key
+                    let username = username
+                    let url = imageUrl
+                    let user_id = currentUserId
+                    let caption = snapshot.value["caption"] as! String
+                    let followerFeed = FollowerFeedPhoto(photoKey: photoKey,caption:caption, username:username, url:url,user_id:user_id)
+                    self.images.append(followerFeed)
+                    self.tableView.reloadData()
+                                
+                  }
+                })
+             }
+           }
+         }
+        })
     }
-
+    
+    
 
 
     // MARK: - Table view data source
@@ -35,9 +69,15 @@ class HomeTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
-        cell.frame.size.height = self.view.frame.size.height
-        cell.imageView!.image = self.images[indexPath.row]
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! InstagramTableViewCell
+        //cell.frame.size.height = self.view.frame.size.height
+        let followerFeed = self.images[indexPath.row]
+        let url = NSURL(string: followerFeed.url!)
+        let data = NSData(contentsOfURL: url!)
+        let image = UIImage(data: data!)
+        cell.imageCellView!.image = image
+        cell.captionLabel.text = followerFeed.caption
+        cell.usernameLabel.text = followerFeed.username
 
         return cell
     }
@@ -45,50 +85,25 @@ class HomeTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return self.view.frame.size.height
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let feedphoto = self.images[indexPath.row]
+        let url = NSURL(string: feedphoto.url!)
+        let data = NSData(contentsOfURL: url!)
+        let image = UIImage(data: data!)
+        let photo = Photo(key: feedphoto._photoKey, photo: image!)
+        self.selectedImage = photo
+       self.performSegueWithIdentifier("HomeToPhotoSegue", sender: self)
     }
-    */
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if let destination = segue.destinationViewController as? PhotoViewController {
+            
+            destination.photo = self.selectedImage
+        }
     }
-    */
+
 
 }

@@ -17,6 +17,7 @@ class PhotoViewController: UIViewController, UITextFieldDelegate, UITableViewDat
     var comments = [Comment]()
     override func viewDidLoad() {
         super.viewDidLoad()
+    
         self.imageView.image = self.photo!.image
         let rootReference = DataService.dataService.BASE_REF
         let photoKey = self.photo!.photoKey
@@ -82,7 +83,6 @@ class PhotoViewController: UIViewController, UITextFieldDelegate, UITableViewDat
                  let username = NSUserDefaults.standardUserDefaults().objectForKey("username") as! String
                  let comment = Comment(body: comment, username:  username)
                  self.comments.append(comment)
-                 self.tableView.reloadData()
                 self.tableView.reloadData()
             } else {
                 print("(\(error))")

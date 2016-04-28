@@ -60,7 +60,7 @@ class SubmitViewController: UIViewController {
                             followerRef.observeEventType(.Value, withBlock: { snapshot in
                                   print(snapshot.value)
                                   if let value = snapshot.value as? [String: AnyObject] {
-                                    for(key,value) in value {
+                                    for(key,_) in value {
                                       let username = NSUserDefaults.standardUserDefaults().objectForKey("username") as! String
                                       let userFollowerRef = rootReference.childByAppendingPath("users").childByAppendingPath(key).childByAppendingPath("followerfeed").childByAutoId()
                                         let feedDict = [photoId: true,"url":urlString,"caption": captionText,"user_id":currentUserID, "username":username]
