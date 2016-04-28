@@ -50,16 +50,23 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
   
         if let possibleImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
+            print("1")
             self.image = possibleImage
-            self.performSegueWithIdentifier("cameraToSubmitSegue", sender: self)
-            //UIImageWriteToSavedPhotosAlbum(newImage, self, nil, nil)
+//            self.performSegueWithIdentifier("cameraToSubmitSegue", sender: self)
+            UIImageWriteToSavedPhotosAlbum(possibleImage, nil, nil, nil)
+            
         } else if let possibleImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+            print("2")
             self.image = possibleImage
-            self.performSegueWithIdentifier("cameraToSubmitSegue", sender: self)
-            //UIImageWriteToSavedPhotosAlbum(newImage, self, nil, nil)
+//            self.performSegueWithIdentifier("cameraToSubmitSegue", sender: self)
+            UIImageWriteToSavedPhotosAlbum(possibleImage, nil, nil, nil)
             // need to change the NIL (selector)
         } else {
+            print("3")
             return
+        }
+        dismissViewControllerAnimated(true) { 
+            self.performSegueWithIdentifier("cameraToSubmitSegue", sender: self)
         }
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
