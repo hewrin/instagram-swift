@@ -79,15 +79,10 @@ class PhotoViewController: UIViewController, UITextFieldDelegate, UITableViewDat
         
           commentRef.setValue(commentDict, withCompletionBlock: {(error, result) -> Void in
             if error == nil {
-                let commenterRef = rootReference.childByAppendingPath("users").childByAppendingPath(currentUserID)
-                
-                commenterRef.observeEventType(.Value, withBlock: { snapshot in
-                    if let username = snapshot.value["username"] as? String {
-                        let comment = Comment(body: comment, username:  username)
-                        self.comments.append(comment)
-                        self.tableView.reloadData()
-                    }
-                })
+                 let username = NSUserDefaults.standardUserDefaults().objectForKey("username") as! String
+                 let comment = Comment(body: comment, username:  username)
+                 self.comments.append(comment)
+                 self.tableView.reloadData()
                 self.tableView.reloadData()
             } else {
                 print("(\(error))")
