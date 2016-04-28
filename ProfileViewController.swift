@@ -10,7 +10,8 @@ import UIKit
 
 class ProfileViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     @IBOutlet weak var collectionView: UICollectionView!
-    var images = [UIImage]()
+    var images = [Photo]()
+    var sentImage : Photo?
     override func viewDidLoad() {
         super.viewDidLoad()
         let rootReference = DataService.dataService.BASE_REF
@@ -33,9 +34,12 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
                                 let data = NSData(contentsOfURL: url!)
                                 print("\(url)")
                                 print("here")
-                                //make sure your image in this url does exist, otherwise unwrap in a if let check
+                                
+                                
                                 let image = UIImage(data: data!)
-                                self.images.append(image!)
+                                let photoKey = key
+                                let newPhoto = Photo(key :key,photo: image!)
+                                self.images.append(newPhoto)
                                 self.collectionView.reloadData()
                                 
                             }
@@ -60,8 +64,8 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("pictureCell", forIndexPath: indexPath) as! InstagramPhotoCell
-        let image = self.images[indexPath.row]
-        cell.imageView.image = image
+        let photo = self.images[indexPath.row]
+        cell.imageView.image = photo.image
         
         return cell
     }
@@ -71,14 +75,15 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
         sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         return CGSize(width: 100, height: 100)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        self.sentImage = self.images[indexPath.row]
+        self.performSegueWithIdentifier("viewPhotoSegue", sender: self)
     }
-    */
-
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let destination = segue.destinationViewController as! PhotoViewController
+        destination.photo = self.sentImage
+        
+    }
 }
