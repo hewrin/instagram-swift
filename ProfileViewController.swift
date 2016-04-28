@@ -82,8 +82,8 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let destination = segue.destinationViewController as! PhotoViewController
-        destination.photo = self.sentImage
-        
+        if let destination = segue.destinationViewController as? PhotoViewController {
+         destination.photo = self.sentImage
+        }
     }
 }
