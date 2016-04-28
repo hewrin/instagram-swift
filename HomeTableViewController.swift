@@ -11,10 +11,8 @@ import UIKit
 class HomeTableViewController: UITableViewController {
     var images = [UIImage]()
     
-    @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var captionLabel: UILabel!
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var newsfeedView: UIView!
+
+
     
     
     
