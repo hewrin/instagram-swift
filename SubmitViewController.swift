@@ -44,7 +44,7 @@ class SubmitViewController: UIViewController {
                     let currentUser = rootReference.childByAppendingPath("users").childByAppendingPath(currentUserID)
                     let captionText = self.captionTextField!.text! as String
                     let  photo = ["url": urlString, "caption": captionText, "user_id": currentUserID]
-                    print("\(photo)")
+
                     
                     let photoRef = rootReference.childByAppendingPath("photos").childByAutoId()
                     
@@ -55,6 +55,19 @@ class SubmitViewController: UIViewController {
                             let newPhoto = [photoId : true ]
                             currentUser.childByAppendingPath("photos").updateChildValues(newPhoto)
                             
+                                let followerRef = currentUser.childByAppendingPath("followers")
+                                print("First")
+                            followerRef.observeEventType(.Value, withBlock: { snapshot in
+                                  print(snapshot.value)
+                                  if let value = snapshot.value as? [String: AnyObject] {
+                                    for(key,value) in value {
+                                      let username = NSUserDefaults.standardUserDefaults().objectForKey("username") as! String
+                                      let userFollowerRef = rootReference.childByAppendingPath("users").childByAppendingPath(key).childByAppendingPath("followerfeed").childByAutoId()
+                                        let feedDict = [photoId: true,"url":urlString,"caption": captionText,"user_id":currentUserID, "username":username]
+                                      userFollowerRef.updateChildValues(feedDict as [NSObject : AnyObject])
+                                    }
+                                  }
+                                })
                             let storyboard = UIStoryboard(name: "Main", bundle: nil)
                             let viewController = storyboard.instantiateViewControllerWithIdentifier("MainTabBarController") as! UITabBarController
                             viewController.selectedIndex = 2;

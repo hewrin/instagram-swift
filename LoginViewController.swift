@@ -32,8 +32,8 @@ class LoginViewController: UIViewController {
     @IBAction func goButtonPressed(sender: AnyObject) {
         
         if let email = emailTextField.text, let password = passwordTextField.text {
-            
-            DataService.dataService.BASE_REF.authUser(email, password: password, withCompletionBlock: { (error, authData) in
+            let rootReference = DataService.dataService.BASE_REF
+            rootReference.authUser(email, password: password, withCompletionBlock: { (error, authData) in
                 if error != nil{
                     let alertController = UIAlertController(title: "Error Message", message: "\(error.localizedDescription)", preferredStyle: .Alert)
                     
@@ -44,8 +44,14 @@ class LoginViewController: UIViewController {
                 }else{
                     
                     NSUserDefaults.standardUserDefaults().setValue(authData.uid, forKey: "uid")
-
+                    let userRef = rootReference.childByAppendingPath("users").childByAppendingPath("\(authData.uid)")
+                    userRef.observeEventType(.Value, withBlock: { snapshot in
+                        if let username = snapshot.value["username"] as? String {
+                         NSUserDefaults.standardUserDefaults().setValue(username, forKey: "username")
+                        }
+                    
                     self.performSegueWithIdentifier("LoggedIn", sender: nil)
+                    })
                 }
             })
         }
