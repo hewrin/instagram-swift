@@ -14,40 +14,47 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     var sentImage : Photo?
     override func viewDidLoad() {
         super.viewDidLoad()
-        let rootReference = DataService.dataService.BASE_REF
-        let photoRef = DataService.dataService.PHOTO_REF
-        if let currentUserID = NSUserDefaults.standardUserDefaults().valueForKey("uid") as? String {
-           let currentUser = rootReference.childByAppendingPath("users").childByAppendingPath(currentUserID)
-           let userPhotos = currentUser.childByAppendingPath("photos")
-            
-            userPhotos.observeEventType(.Value, withBlock: { snapshot in
-                if !(snapshot.value is NSNull) {
-                    if let value = snapshot.value as? [String: AnyObject] {
-                     for (key,value) in value {
-                        let childPhotoRef = photoRef.childByAppendingPath("\(key)")
-                         print("\(childPhotoRef)")
-                        
-                        childPhotoRef.observeEventType(.Value, withBlock: { (snapshot) -> Void in
-                            if let imageUrl = snapshot.value["url"] as? String {
+        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+        dispatch_async(dispatch_get_global_queue(priority, 0)) {
+            let rootReference = DataService.dataService.BASE_REF
+            let photoRef = DataService.dataService.PHOTO_REF
+            if let currentUserID = NSUserDefaults.standardUserDefaults().valueForKey("uid") as? String {
+                let currentUser = rootReference.childByAppendingPath("users").childByAppendingPath(currentUserID)
+                let userPhotos = currentUser.childByAppendingPath("photos")
+                
+                userPhotos.observeEventType(.Value, withBlock: { snapshot in
+                    if !(snapshot.value is NSNull) {
+                        if let value = snapshot.value as? [String: AnyObject] {
+                            for (key,value) in value {
+                                let childPhotoRef = photoRef.childByAppendingPath("\(key)")
+                                print("\(childPhotoRef)")
                                 
-                                let url = NSURL(string: imageUrl)
-                                let data = NSData(contentsOfURL: url!)
-                                let image = UIImage(data: data!)
-                                let newPhoto = Photo(key :key,photo: image!)
-                                self.images.append(newPhoto)
-                                self.collectionView.reloadData()
-                                
+                                childPhotoRef.observeEventType(.Value, withBlock: { (snapshot) -> Void in
+                                    if let imageUrl = snapshot.value["url"] as? String {
+                                        
+                                        let url = NSURL(string: imageUrl)
+                                        let data = NSData(contentsOfURL: url!)
+                                        let image = UIImage(data: data!)
+                                        let newPhoto = Photo(key :key,photo: image!)
+                                        self.images.append(newPhoto)
+                                        self.collectionView.reloadData()
+                                        
+                                    }
+                                    
+                                })
                             }
-                            
-                        })
                         }
+                        
                     }
-
-                }
-                }, withCancelBlock: { error in
-                    print(error.description)
-            })
+                    }, withCancelBlock: { error in
+                        print(error.description)
+                })
+            }
+            dispatch_async(dispatch_get_main_queue()) {
+                self.collectionView.reloadData()
+            }
         }
+
      
         
     }

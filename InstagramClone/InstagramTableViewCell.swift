@@ -9,7 +9,6 @@
 import UIKit
 
 class InstagramTableViewCell: UITableViewCell {
-<<<<<<< HEAD
 
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var captionLabel: UILabel!

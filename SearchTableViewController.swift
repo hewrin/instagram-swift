@@ -13,7 +13,7 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
     var usernameID = [User]()
     var filteredTableData = [User]()
     var resultSearchController = UISearchController()
-    
+    var chosenUser : User?
     override func viewDidLoad() {
         super.viewDidLoad()
         DataService.dataService.USER_REF.observeEventType(.ChildAdded, withBlock:  { (snapshot) in
@@ -76,13 +76,25 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
         if let destination = segue.destinationViewController as? OtherUserProfileViewController{
-            if let cell = sender as? UITableViewCell{
-                let indexPath = tableView.indexPathForCell(cell)!
-                
-                let choosenUser = self.usernameID[indexPath.row]
-                destination.user = choosenUser
-            }
+            destination.user = self.chosenUser
+        }
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let choosenUser = self.usernameID[indexPath.row]
+        let currentUserID = NSUserDefaults.standardUserDefaults().valueForKey("uid") as! String
+        
+        if(choosenUser.userKey == currentUserID) {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewControllerWithIdentifier("MainTabBarController") as! UITabBarController
+            viewController.selectedIndex = 2;
+            self.presentViewController(viewController, animated: true, completion: nil)
+        } else {
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
+          self.chosenUser = choosenUser
+          self.performSegueWithIdentifier("OtherProfileSegue", sender: cell)
         }
     }
     

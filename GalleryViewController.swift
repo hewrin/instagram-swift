@@ -66,5 +66,10 @@ class GalleryViewController: UIViewController,UINavigationControllerDelegate, UI
         destination.image = self.imageView.image
         
     }
+    
+    @IBAction func onBackButtonPressed(sender: AnyObject) {
+      self.dismissViewControllerAnimated(true, completion:nil)
+    }
+    
 }
   

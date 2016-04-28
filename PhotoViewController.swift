@@ -18,7 +18,7 @@ class PhotoViewController: UIViewController, UITextFieldDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:("LoginViewController.dismissKeyboard"))
         view.addGestureRecognizer(tap)
         
         self.imageView.image = self.photo!.image
@@ -31,17 +31,19 @@ class PhotoViewController: UIViewController, UITextFieldDelegate, UITableViewDat
             self.likeCountLabel.text = String(snapshot.value.count)
           }
         })
+        //This query is getting called everytime
         commentRef.queryOrderedByChild("photo_id").queryEqualToValue(photoKey).observeEventType(.Value, withBlock: { snapshot in
+            
             if let value = snapshot.value as? [String: AnyObject] {
                 for (key,value) in value {
                     if let body = value["body"] as? String {
-                        
                         let commenterRef = rootReference.childByAppendingPath("users").childByAppendingPath("\(value["user_id"])")
                         
                         commenterRef.observeEventType(.Value, withBlock: { snapshot in
                             if let username = snapshot.value["username"] as? String {
                                 let comment = Comment(body: body, username:  username)
                                 self.comments.append(comment)
+                                
                                 self.tableView.reloadData()
                             }
                         })
@@ -91,7 +93,7 @@ class PhotoViewController: UIViewController, UITextFieldDelegate, UITableViewDat
                 print("(\(error))")
             }
         })
-        return true
+        return false
         }
     }
     
