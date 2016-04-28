@@ -68,6 +68,8 @@ class OtherUserProfileViewController: UIViewController,UICollectionViewDataSourc
     }
 
     @IBAction func onFollowingButtonPressed(sender: AnyObject) {
+        
+        
         if (!isFollowing) {
             isFollowing = true
             
@@ -82,7 +84,6 @@ class OtherUserProfileViewController: UIViewController,UICollectionViewDataSourc
             })
         
         }
-    
     }
     
     
