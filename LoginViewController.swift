@@ -16,9 +16,6 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:("LoginViewController.dismissKeyboard"))
-        view.addGestureRecognizer(tap)
-        
         let currentUserID = NSUserDefaults.standardUserDefaults().valueForKey("uid") as? String
         if currentUserID != nil {
             //checks in user database
@@ -26,13 +23,15 @@ class LoginViewController: UIViewController {
                 self.performSegueWithIdentifier("LoggedIn", sender: nil)
             }
         }
-        
-        
     }
 
-    func dismissKeyboard() {
-
-        view.endEditing(true)
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
 

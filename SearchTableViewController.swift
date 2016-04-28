@@ -39,14 +39,6 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
         
     }
     
-    
-    @IBAction func searchButtonPressed(sender: AnyObject) {
-        
-        
-        
-    }
-    
-    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (self.resultSearchController.active) {
             return self.filteredTableData.count
@@ -112,5 +104,12 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
         
     }
     
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
     
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 }

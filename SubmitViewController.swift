@@ -93,6 +93,14 @@ class SubmitViewController: UIViewController {
         self.imageView.image = image
     }
     
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
+    }
     
     /*
     // MARK: - Navigation
