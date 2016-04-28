@@ -15,7 +15,9 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
         
         let currentUserID = NSUserDefaults.standardUserDefaults().valueForKey("uid") as? String
         if currentUserID != nil {
@@ -28,6 +30,11 @@ class LoginViewController: UIViewController {
         
     }
 
+    func dismissKeyboard() {
+
+        view.endEditing(true)
+    }
+    
 
     @IBAction func goButtonPressed(sender: AnyObject) {
         

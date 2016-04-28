@@ -17,6 +17,10 @@ class PhotoViewController: UIViewController, UITextFieldDelegate, UITableViewDat
     var comments = [Comment]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        
         self.imageView.image = self.photo!.image
         let rootReference = DataService.dataService.BASE_REF
         let photoKey = self.photo!.photoKey
@@ -90,5 +94,10 @@ class PhotoViewController: UIViewController, UITextFieldDelegate, UITableViewDat
         })
         return true
         }
+    }
+    
+    func dismissKeyboard() {
+        
+        view.endEditing(true)
     }
 }
