@@ -392,51 +392,42 @@
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="500" id="jdP-0z-Axo" customClass="InstagramTableViewCell" customModule="InstagramClone" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="600" height="500"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jdP-0z-Axo" id="3A0-y3-Qms">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="jdP-0z-Axo" id="3A0-y3-Qms">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="499"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Os-Uo-eWN">
+                                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Os-Uo-eWN">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="499"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dxc-ZI-Cji">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JKS-z5-SiC">
+                                                    <rect key="frame" x="0.0" y="469" width="600" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="6jJ-jF-FOt"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JKS-z5-SiC">
-                                                    <rect key="frame" x="0.0" y="470" width="600" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dxc-ZI-Cji">
+                                                    <rect key="frame" x="0.0" y="439" width="600" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="uYN-AL-zBv"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aOd-u5-Bd8">
-                                                    <rect key="frame" x="0.0" y="29" width="600" height="398"/>
-                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstItem="aOd-u5-Bd8" firstAttribute="top" secondItem="Dxc-ZI-Cji" secondAttribute="bottom" constant="8" id="3Me-ZO-TpU"/>
-                                                <constraint firstItem="JKS-z5-SiC" firstAttribute="top" secondItem="aOd-u5-Bd8" secondAttribute="bottom" constant="43" id="8ek-9P-eMH"/>
-                                                <constraint firstItem="aOd-u5-Bd8" firstAttribute="top" secondItem="Dxc-ZI-Cji" secondAttribute="bottom" constant="8" id="8kc-On-8oH"/>
-                                                <constraint firstAttribute="trailing" secondItem="aOd-u5-Bd8" secondAttribute="trailing" id="ECF-Gf-twV"/>
-                                                <constraint firstAttribute="trailing" secondItem="JKS-z5-SiC" secondAttribute="trailing" id="FXn-bB-1S0"/>
-                                                <constraint firstItem="JKS-z5-SiC" firstAttribute="leading" secondItem="5Os-Uo-eWN" secondAttribute="leading" id="Id9-Yu-eYL"/>
-                                                <constraint firstItem="Dxc-ZI-Cji" firstAttribute="top" secondItem="5Os-Uo-eWN" secondAttribute="top" id="KZh-wr-0AG"/>
-                                                <constraint firstItem="JKS-z5-SiC" firstAttribute="top" secondItem="aOd-u5-Bd8" secondAttribute="bottom" constant="43" id="UVY-PQ-HFB"/>
-                                                <constraint firstItem="Dxc-ZI-Cji" firstAttribute="leading" secondItem="5Os-Uo-eWN" secondAttribute="leading" id="XLi-sn-C8L"/>
-                                                <constraint firstAttribute="trailing" secondItem="Dxc-ZI-Cji" secondAttribute="trailing" id="Yd5-cI-jvq"/>
-                                                <constraint firstItem="aOd-u5-Bd8" firstAttribute="leading" secondItem="5Os-Uo-eWN" secondAttribute="leading" id="gSa-R4-P4A"/>
-                                                <constraint firstAttribute="bottom" secondItem="JKS-z5-SiC" secondAttribute="bottom" constant="8" id="tBV-Q9-7t7"/>
-                                                <constraint firstItem="aOd-u5-Bd8" firstAttribute="top" secondItem="Dxc-ZI-Cji" secondAttribute="bottom" constant="8" id="yoH-X2-dLA"/>
+                                                <constraint firstItem="JKS-z5-SiC" firstAttribute="leading" secondItem="5Os-Uo-eWN" secondAttribute="leading" id="4MX-8O-M1J"/>
+                                                <constraint firstAttribute="bottom" secondItem="JKS-z5-SiC" secondAttribute="bottom" id="5nY-od-xwd"/>
+                                                <constraint firstItem="Dxc-ZI-Cji" firstAttribute="top" secondItem="5Os-Uo-eWN" secondAttribute="top" id="Iog-BG-EyW"/>
+                                                <constraint firstItem="JKS-z5-SiC" firstAttribute="top" secondItem="Dxc-ZI-Cji" secondAttribute="bottom" id="MV3-Ew-bNj"/>
+                                                <constraint firstAttribute="trailing" secondItem="JKS-z5-SiC" secondAttribute="trailing" id="bOo-DB-leC"/>
+                                                <constraint firstAttribute="trailing" secondItem="Dxc-ZI-Cji" secondAttribute="trailing" id="to9-5M-pkh"/>
+                                                <constraint firstItem="Dxc-ZI-Cji" firstAttribute="leading" secondItem="5Os-Uo-eWN" secondAttribute="leading" id="xme-77-73C"/>
                                             </constraints>
-                                            <variation key="default">
-                                                <mask key="constraints">
-                                                    <exclude reference="3Me-ZO-TpU"/>
-                                                    <exclude reference="yoH-X2-dLA"/>
-                                                </mask>
-                                            </variation>
                                         </view>
                                     </subviews>
                                     <constraints>
@@ -448,8 +439,6 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="captionLabel" destination="JKS-z5-SiC" id="cmo-Bb-ecs"/>
-                                    <outlet property="imageCellView" destination="aOd-u5-Bd8" id="bSm-2N-vmH"/>
-                                    <outlet property="imageView" destination="aOd-u5-Bd8" id="Ddc-M7-1hC"/>
                                     <outlet property="usernameLabel" destination="Dxc-ZI-Cji" id="61k-ae-p45"/>
                                 </connections>
                             </tableViewCell>
@@ -1118,8 +1107,8 @@
     <inferredMetricsTieBreakers>
         <segue reference="T3t-KG-32L"/>
         <segue reference="L4S-bd-0Qu"/>
-        <segue reference="Dl4-Wu-KH1"/>
-        <segue reference="fAk-qu-gYs"/>
+        <segue reference="Arb-Je-cgh"/>
+        <segue reference="ydy-A2-SeQ"/>
         <segue reference="Nix-zM-Ibr"/>
     </inferredMetricsTieBreakers>
 </document>
