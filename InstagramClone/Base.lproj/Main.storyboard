@@ -6,10 +6,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Login View Controller-->
+        <!--Login-->
         <scene sceneID="bFF-fV-VDw">
             <objects>
-                <viewController id="hMP-ch-Ec4" customClass="LoginViewController" customModule="InstagramClone" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Login" title="Login" id="hMP-ch-Ec4" customClass="LoginViewController" customModule="InstagramClone" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pfw-oL-b7t"/>
                         <viewControllerLayoutGuide type="bottom" id="9KF-ap-lbA"/>
@@ -365,6 +365,11 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="MNt-dS-aMx">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="lxh-Vn-JhB">
+                            <connections>
+                                <action selector="logoutButton:" destination="U6L-5e-kN4" id="VZh-Vc-QXz"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Tt5-NC-9lV">
                             <connections>
                                 <segue destination="Idy-EC-xhn" kind="presentation" id="Dl4-Wu-KH1"/>
@@ -1138,12 +1143,10 @@
         <image name="profilePic" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Nix-zM-Ibr"/>
-        <segue reference="ydy-A2-SeQ"/>
+        <segue reference="Dl4-Wu-KH1"/>
         <segue reference="T3t-KG-32L"/>
         <segue reference="L4S-bd-0Qu"/>
-        <segue reference="Arb-Je-cgh"/>
-        <segue reference="ydy-A2-SeQ"/>
+        <segue reference="fAk-qu-gYs"/>
         <segue reference="Nix-zM-Ibr"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -92,4 +92,14 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
          destination.photo = self.sentImage
         }
     }
+    @IBAction func logoutButton(sender: AnyObject) {
+        
+        
+        DataService.dataService.BASE_REF.unauth()
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        
+        let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("Login") as! LoginViewController
+        self.presentViewController(nextViewController, animated:true, completion:nil)
+        
+    }
 }
