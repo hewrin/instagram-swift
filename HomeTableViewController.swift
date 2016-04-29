@@ -12,10 +12,15 @@ class HomeTableViewController: UITableViewController {
     var images = [FollowerFeedPhoto]()
     var selectedImage : Photo?
     
+    @IBOutlet weak var uiView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.estimatedRowHeight = 30
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        
+//        self.uiView?.frame = CGRectMake(0 , 0, self.view.frame.width, self.view.frame.height)
+
+//        self.tableView.estimatedRowHeight = 100
+//        self.tableView.rowHeight = UITableViewAutomaticDimension
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             
@@ -75,6 +80,14 @@ class HomeTableViewController: UITableViewController {
     
     
     // MARK: - Table view data source
+//    
+//    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//        return UITableViewAutomaticDimension
+//    }
+//    
+//    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//        return UITableViewAutomaticDimension
+//    }
     
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
