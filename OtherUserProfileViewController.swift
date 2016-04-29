@@ -15,10 +15,11 @@ class OtherUserProfileViewController: UIViewController,UICollectionViewDataSourc
     var userImages = [UIImage]()
     var isFollowing = false
     var user : User!
-
+    var sentImage : UIImage?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = user.username
         self.user.checkIfFollowingThisUser({checkResult in
             if checkResult{
                 self.followButton.setTitle("Followed", forState: UIControlState.Normal) 
@@ -28,11 +29,6 @@ class OtherUserProfileViewController: UIViewController,UICollectionViewDataSourc
         })
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            DataService.dataService.USER_REF.childByAppendingPath(self.user!.userKey).observeEventType(.Value, withBlock: { (snapshot) in
-                if let username = snapshot.value["username"] as? String{
-                    self.title = username
-                }
-            })
             
             
             DataService.dataService.USER_REF.childByAppendingPath(self.user!.userKey).childByAppendingPath("photos").observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
@@ -76,6 +72,10 @@ class OtherUserProfileViewController: UIViewController,UICollectionViewDataSourc
     func collectionView(collectionView: UICollectionView,layout collectionViewLayout: UICollectionViewLayout,sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         
         return CGSize(width: 100, height: 100)
+    }
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        self.sentImage = self.userImages[indexPath.row]
+        self.performSegueWithIdentifier("viewPhotoSegue", sender: self)
     }
 
     @IBAction func onFollowingButtonPressed(sender: AnyObject) {

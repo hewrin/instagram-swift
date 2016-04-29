@@ -916,6 +916,7 @@
                         <outlet property="collectionView" destination="GwY-ih-oPP" id="k38-If-hxv"/>
                         <outlet property="followButton" destination="82Y-pb-WAu" id="FXr-DO-XlT"/>
                         <outlet property="userImageView" destination="wCa-xg-vNn" id="gZx-QF-ubK"/>
+                        <segue destination="DTa-zG-mi5" kind="show" identifier="viewPhotoSegue" id="MZO-os-7rX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zpv-o5-udC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1144,10 +1145,10 @@
         <image name="profilePic" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Dl4-Wu-KH1"/>
-        <segue reference="T3t-KG-32L"/>
         <segue reference="L4S-bd-0Qu"/>
-        <segue reference="fAk-qu-gYs"/>
+        <segue reference="T3t-KG-32L"/>
+        <segue reference="MZO-os-7rX"/>
+        <segue reference="Dl4-Wu-KH1"/>
         <segue reference="Nix-zM-Ibr"/>
     </inferredMetricsTieBreakers>
 </document>
