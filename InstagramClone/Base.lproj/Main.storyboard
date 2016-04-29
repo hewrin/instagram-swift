@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QAL-df-7re">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QAL-df-7re">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -446,6 +446,7 @@
                                                 <constraint firstItem="Dxc-ZI-Cji" firstAttribute="leading" secondItem="5Os-Uo-eWN" secondAttribute="leading" id="XLi-sn-C8L"/>
                                                 <constraint firstAttribute="trailing" secondItem="Dxc-ZI-Cji" secondAttribute="trailing" id="Yd5-cI-jvq"/>
                                                 <constraint firstItem="aOd-u5-Bd8" firstAttribute="centerX" secondItem="5Os-Uo-eWN" secondAttribute="centerX" id="gxI-FB-d6k"/>
+                                                <constraint firstAttribute="bottom" secondItem="JKS-z5-SiC" secondAttribute="bottom" constant="20" id="h23-Vv-PJc"/>
                                                 <constraint firstAttribute="bottom" secondItem="JKS-z5-SiC" secondAttribute="bottom" constant="8" id="tBV-Q9-7t7"/>
                                                 <constraint firstItem="aOd-u5-Bd8" firstAttribute="top" secondItem="Dxc-ZI-Cji" secondAttribute="bottom" constant="8" id="tEm-dt-pfd"/>
                                                 <constraint firstAttribute="bottom" secondItem="JKS-z5-SiC" secondAttribute="bottom" constant="22" id="uHm-Jk-uKb"/>
@@ -1146,17 +1147,10 @@
         <image name="profilePic" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-<<<<<<< HEAD
+        <segue reference="ydy-A2-SeQ"/>
         <segue reference="T3t-KG-32L"/>
         <segue reference="L4S-bd-0Qu"/>
         <segue reference="Arb-Je-cgh"/>
-        <segue reference="ydy-A2-SeQ"/>
-=======
-        <segue reference="L4S-bd-0Qu"/>
-        <segue reference="T3t-KG-32L"/>
-        <segue reference="MZO-os-7rX"/>
-        <segue reference="Dl4-Wu-KH1"/>
->>>>>>> 7d358c9fdf32c66fdf71d8ab264e3555660d4b22
         <segue reference="Nix-zM-Ibr"/>
     </inferredMetricsTieBreakers>
 </document>
