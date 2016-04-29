@@ -18,23 +18,23 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             let rootReference = DataService.dataService.BASE_REF
             let photoRef = DataService.dataService.PHOTO_REF
+            let username = NSUserDefaults.standardUserDefaults().objectForKey("username") as! String
+            self.title = username
             if let currentUserID = NSUserDefaults.standardUserDefaults().valueForKey("uid") as? String {
                 let currentUser = rootReference.childByAppendingPath("users").childByAppendingPath(currentUserID)
                 let userPhotos = currentUser.childByAppendingPath("photos")
                 
                 userPhotos.observeSingleEventOfType(.Value, withBlock: { snapshot in
                     if !(snapshot.value is NSNull) {
-                        
-                        if let username = snapshot.value["username"] as? String{
-                            self.title = username
-                        
                         if let value = snapshot.value as? [String: AnyObject] {
-                            for (key,value) in value {
+                            print("value is good")
+                            for (key,_) in value {
                                 let childPhotoRef = photoRef.childByAppendingPath("\(key)")
                                 print("\(childPhotoRef)")
                                 
                                 childPhotoRef.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
                                     if let imageUrl = snapshot.value["url"] as? String {
+                                        print("goes here")
                                         
                                         let url = NSURL(string: imageUrl)
                                         let data = NSData(contentsOfURL: url!)
@@ -48,7 +48,7 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
                                 })
                             }
                         }
-                        }
+ 
                     }
                     }, withCancelBlock: { error in
                         print(error.description)
