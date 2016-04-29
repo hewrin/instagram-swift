@@ -16,11 +16,16 @@ class HomeTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+<<<<<<< HEAD
         
 //        self.uiView?.frame = CGRectMake(0 , 0, self.view.frame.width, self.view.frame.height)
 
 //        self.tableView.estimatedRowHeight = 100
 //        self.tableView.rowHeight = UITableViewAutomaticDimension
+=======
+        self.tableView.estimatedRowHeight = 500
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+>>>>>>> 7d358c9fdf32c66fdf71d8ab264e3555660d4b22
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             
@@ -52,7 +57,6 @@ class HomeTableViewController: UITableViewController {
                         for (key,_) in value {
                             let childPhotoRef = photoRef.childByAppendingPath("\(key)")
                             childPhotoRef.observeEventType(.Value, withBlock: { (snapshot) -> Void in
-                                print(snapshot.value)
                                 if let imageUrl = snapshot.value["url"] as? String {
                                     let photoKey = snapshot.key
                                     let username = username
@@ -96,6 +100,8 @@ class HomeTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! InstagramTableViewCell
+        cell.frame.size.width = self.view.frame.size.width
+        cell.frame.size.height = self.view.frame.size.height
         let followerFeed = self.images[indexPath.row]
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
@@ -106,6 +112,7 @@ class HomeTableViewController: UITableViewController {
                 cell.imageCellView!.image = image
             }
         }
+
         cell.captionLabel.text = followerFeed.caption
         cell.usernameLabel.text = followerFeed.username
         return cell

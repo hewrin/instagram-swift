@@ -12,13 +12,14 @@ class OtherUserProfileViewController: UIViewController,UICollectionViewDataSourc
     @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var userImageView: UIImageView!
-    var userImages = [UIImage]()
+    var userImages = [Photo]()
     var isFollowing = false
     var user : User!
-
+    var sentImage : Photo?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = user.username
         self.user.checkIfFollowingThisUser({checkResult in
             if checkResult{
                 self.followButton.setTitle("Followed", forState: UIControlState.Normal) 
@@ -28,28 +29,20 @@ class OtherUserProfileViewController: UIViewController,UICollectionViewDataSourc
         })
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            DataService.dataService.USER_REF.childByAppendingPath(self.user!.userKey).observeEventType(.Value, withBlock: { (snapshot) in
-                if let username = snapshot.value["username"] as? String{
-                    self.title = username
-                }
-            })
             
             
-            DataService.dataService.USER_REF.childByAppendingPath(self.user!.userKey).childByAppendingPath("photos").observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
+            DataService.dataService.USER_REF.childByAppendingPath(self.user!.userKey).childByAppendingPath("photos").observeSingleEventOfType(.ChildAdded, withBlock: { (snapshot) -> Void in
                 
-                DataService.dataService.PHOTO_REF.childByAppendingPath(snapshot.key).observeEventType(.Value, withBlock: { (snapshot) -> Void in
-                    
+                DataService.dataService.PHOTO_REF.childByAppendingPath(snapshot.key).observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
+                    print(snapshot.value)
+                    print(snapshot.key)
                     if let imageUrl = snapshot.value["url"] as? String {
                         
                         let url = NSURL(string: imageUrl)
                         let data = NSData(contentsOfURL: url!)
-                        print("\(url)")
-                        print("here")
-                        //make sure your image in this url does exist, otherwise unwrap in a if let check
                         let image = UIImage(data: data!)
-                        self.userImages.append(image!)
-                        
-                        
+                        let newPhoto = Photo(key :snapshot.key,photo: image!)
+                        self.userImages.append(newPhoto)
                         self.collectionView.reloadData()
                         
                     }
@@ -69,7 +62,7 @@ class OtherUserProfileViewController: UIViewController,UICollectionViewDataSourc
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("pictureCell", forIndexPath: indexPath)as! InstagramPhotoCell
         let userProfile = self.userImages[indexPath.row]
-        cell.imageView.image = userProfile
+        cell.imageView.image = userProfile.image
         return cell
     }
  
@@ -77,7 +70,16 @@ class OtherUserProfileViewController: UIViewController,UICollectionViewDataSourc
         
         return CGSize(width: 100, height: 100)
     }
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        self.sentImage = self.userImages[indexPath.row]
+        self.performSegueWithIdentifier("viewPhotoSegue", sender: self)
+    }
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let destination = segue.destinationViewController as? PhotoViewController {
+            destination.photo = self.sentImage
+        }
+    }
     @IBAction func onFollowingButtonPressed(sender: AnyObject) {
         
         
