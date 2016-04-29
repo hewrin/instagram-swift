@@ -13,6 +13,7 @@ class InstagramTableViewCell: UITableViewCell {
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var captionLabel: UILabel!
     @IBOutlet weak var imageCellView: UIImageView!
+    @IBOutlet weak var uiView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
