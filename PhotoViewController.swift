@@ -24,16 +24,15 @@ class PhotoViewController: UIViewController, UITextFieldDelegate, UITableViewDat
         let photoKey = self.photo!.photoKey
         let likeRef = rootReference.childByAppendingPath("photos/\(photoKey)/likes")
         let commentRef = rootReference.childByAppendingPath("comments")
-        likeRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+        likeRef.observeEventType(.Value, withBlock: { snapshot in
           if !(snapshot.value is NSNull) {
             self.likeCountLabel.text = String(snapshot.value.count)
           }
         })
-        //This query is getting called everytime
         commentRef.queryOrderedByChild("photo_id").queryEqualToValue(photoKey).observeSingleEventOfType(.Value, withBlock: { snapshot in
             
             if let value = snapshot.value as? [String: AnyObject] {
-                for (key,value) in value {
+                for (_,value) in value {
                     if let body = value["body"] as? String {
                         let commenterRef = rootReference.childByAppendingPath("users").childByAppendingPath("\(value["user_id"])")
                         

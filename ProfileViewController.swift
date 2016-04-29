@@ -27,15 +27,10 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
                 userPhotos.observeSingleEventOfType(.Value, withBlock: { snapshot in
                     if !(snapshot.value is NSNull) {
                         if let value = snapshot.value as? [String: AnyObject] {
-                            print("value is good")
                             for (key,_) in value {
                                 let childPhotoRef = photoRef.childByAppendingPath("\(key)")
-                                print("\(childPhotoRef)")
-                                
                                 childPhotoRef.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
                                     if let imageUrl = snapshot.value["url"] as? String {
-                                        print("goes here")
-                                        
                                         let url = NSURL(string: imageUrl)
                                         let data = NSData(contentsOfURL: url!)
                                         let image = UIImage(data: data!)

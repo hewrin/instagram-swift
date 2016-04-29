@@ -31,9 +31,9 @@ class OtherUserProfileViewController: UIViewController,UICollectionViewDataSourc
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             
             
-            DataService.dataService.USER_REF.childByAppendingPath(self.user!.userKey).childByAppendingPath("photos").observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
+            DataService.dataService.USER_REF.childByAppendingPath(self.user!.userKey).childByAppendingPath("photos").observeSingleEventOfType(.ChildAdded, withBlock: { (snapshot) -> Void in
                 
-                DataService.dataService.PHOTO_REF.childByAppendingPath(snapshot.key).observeEventType(.Value, withBlock: { (snapshot) -> Void in
+                DataService.dataService.PHOTO_REF.childByAppendingPath(snapshot.key).observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
                     print(snapshot.value)
                     print(snapshot.key)
                     if let imageUrl = snapshot.value["url"] as? String {
