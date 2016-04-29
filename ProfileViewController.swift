@@ -22,14 +22,14 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
                 let currentUser = rootReference.childByAppendingPath("users").childByAppendingPath(currentUserID)
                 let userPhotos = currentUser.childByAppendingPath("photos")
                 
-                userPhotos.observeEventType(.Value, withBlock: { snapshot in
+                userPhotos.observeSingleEventOfType(.Value, withBlock: { snapshot in
                     if !(snapshot.value is NSNull) {
                         if let value = snapshot.value as? [String: AnyObject] {
                             for (key,value) in value {
                                 let childPhotoRef = photoRef.childByAppendingPath("\(key)")
                                 print("\(childPhotoRef)")
                                 
-                                childPhotoRef.observeEventType(.Value, withBlock: { (snapshot) -> Void in
+                                childPhotoRef.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
                                     if let imageUrl = snapshot.value["url"] as? String {
                                         
                                         let url = NSURL(string: imageUrl)

@@ -90,7 +90,7 @@ class HomeTableViewController: UITableViewController {
             let data = NSData(contentsOfURL: url!)
             let image = UIImage(data: data!)
             dispatch_async(dispatch_get_main_queue()) {
-//                cell.imageCellView!.image = image
+                cell.imageCellView!.image = image
             }
         }
         cell.captionLabel.text = followerFeed.caption
