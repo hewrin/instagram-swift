@@ -472,8 +472,6 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="captionLabel" destination="JKS-z5-SiC" id="cmo-Bb-ecs"/>
-                                    <outlet property="imageCellView" destination="aOd-u5-Bd8" id="bSm-2N-vmH"/>
-                                    <outlet property="imageView" destination="aOd-u5-Bd8" id="Ddc-M7-1hC"/>
                                     <outlet property="usernameLabel" destination="Dxc-ZI-Cji" id="61k-ae-p45"/>
                                 </connections>
                             </tableViewCell>
@@ -1145,5 +1143,7 @@
         <segue reference="T3t-KG-32L"/>
         <segue reference="L4S-bd-0Qu"/>
         <segue reference="Arb-Je-cgh"/>
+        <segue reference="ydy-A2-SeQ"/>
+        <segue reference="Nix-zM-Ibr"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -35,7 +35,9 @@ class HomeTableViewController: UITableViewController {
                         let caption = value["caption"] as! String
                         let followerFeed = FollowerFeedPhoto(photoKey: photoKey,caption:caption, username:username, url:url,user_id:user_id)
                         self.images.append(followerFeed)
-                        self.tableView.reloadData()
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            self.tableView.reloadData()
+                        })
                     }
                 }
             })
@@ -54,8 +56,9 @@ class HomeTableViewController: UITableViewController {
                                     let caption = snapshot.value["caption"] as! String
                                     let followerFeed = FollowerFeedPhoto(photoKey: photoKey,caption:caption, username:username, url:url,user_id:user_id)
                                     self.images.append(followerFeed)
-                                    self.tableView.reloadData()
-                                    
+                                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                        self.tableView.reloadData()
+                                    })
                                 }
                             })
                         }
@@ -63,45 +66,36 @@ class HomeTableViewController: UITableViewController {
                 }
             })
             dispatch_async(dispatch_get_main_queue()) {
-              self.tableView.reloadData()
+                self.tableView.reloadData()
             }
         }
-
     }
     
     
-
-
+    
+    
     // MARK: - Table view data source
-
-
+    
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.images.count
     }
-
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! InstagramTableViewCell
+        let followerFeed = self.images[indexPath.row]
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
-
-            //        cell.frame.size.height = self.view.frame.size.height
-            let followerFeed = self.images[indexPath.row]
             let url = NSURL(string: followerFeed.url!)
             let data = NSData(contentsOfURL: url!)
             let image = UIImage(data: data!)
             dispatch_async(dispatch_get_main_queue()) {
                 cell.imageCellView!.image = image
-                cell.captionLabel.text = followerFeed.caption
-                cell.usernameLabel.text = followerFeed.username
-                
-                
             }
         }
+        cell.captionLabel.text = followerFeed.caption
+        cell.usernameLabel.text = followerFeed.username
         return cell
-    }
-    
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return self.view.frame.size.height
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -111,17 +105,17 @@ class HomeTableViewController: UITableViewController {
         let image = UIImage(data: data!)
         let photo = Photo(key: feedphoto._photoKey, photo: image!)
         self.selectedImage = photo
-       self.performSegueWithIdentifier("HomeToPhotoSegue", sender: self)
+        self.performSegueWithIdentifier("HomeToPhotoSegue", sender: self)
     }
-
+    
     // MARK: - Navigation
-
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let destination = segue.destinationViewController as? PhotoViewController {
             
             destination.photo = self.selectedImage
         }
     }
-
-
+    
+    
 }
